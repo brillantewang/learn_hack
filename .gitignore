@@ -3,9 +3,6 @@
 *.doc
 *.docx
 
-# Claude Code memory (persists via symlink across container rebuilds)
-.claude/memory/
-
 # OS files
 .DS_Store
 Thumbs.db

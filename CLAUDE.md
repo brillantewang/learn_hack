@@ -31,7 +31,7 @@ When starting a new conversation:
 
 ## Memory persistence
 
-Claude Code's memory files live at `/root/.claude/projects/.../memory/`, which gets wiped on dev container rebuild. To fix this, `devcontainer.json` symlinks that path to `.claude/memory/` in the repo (gitignored). This means memories survive rebuilds automatically.
+The host machine's `~/.claude` directory is bind-mounted into the container via `devcontainer.json`, so Claude Code settings and memories persist across rebuilds automatically.
 
 ## Learner profile
 
