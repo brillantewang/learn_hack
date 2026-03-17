@@ -1,0 +1,17 @@
+{
+    "name": "Hack Dev",
+    "image": "hhvm/hhvm:latest",
+    "extensions": ["pranayagarwal.vscode-hack"],
+
+    // Install Node.js and Claude Code (not included in the HHVM image)
+    // This is so I can usae Claude Code in the VSCode terminal.
+    "postCreateCommand": "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs && npm install -g @anthropic-ai/claude-code",
+
+    // Fix Claude Code OAuth login inside dev containers.
+    // Claude Code's auth server binds to localhost, but Node.js resolves that
+    // to ::1 (IPv6). VS Code's port forwarder sends traffic to 127.0.0.1 (IPv4),
+    // so the OAuth callback never reaches the auth server and hangs.
+    // Removing the ::1 entry from /etc/hosts forces Node.js to use IPv4.
+    // See: https://github.com/anthropics/claude-code/issues/9376
+    "postStartCommand": "cp /etc/hosts /tmp/hosts.tmp && sed '/^::1/d' /tmp/hosts.tmp > /etc/hosts"
+}

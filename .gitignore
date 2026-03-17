@@ -1,0 +1,8 @@
+# Sensitive documents
+*.pdf
+*.doc
+*.docx
+
+# OS files
+.DS_Store
+Thumbs.db
