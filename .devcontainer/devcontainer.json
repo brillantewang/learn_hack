@@ -1,9 +1,10 @@
 {
     "name": "Hack Dev",
     "image": "hhvm/hhvm:latest",
-    "extensions": ["pranayagarwal.vscode-hack"],
-    "features": {
-        "ghcr.io/devcontainers/features/github-cli:1": {} // this is so I can get the gh CLI so claude can help with github commands
+    "customizations": {
+        "vscode": {
+            "extensions": ["pranayagarwal.vscode-hack"]
+        }
     },
 
     // Install Node.js and Claude Code (not included in the HHVM image)
