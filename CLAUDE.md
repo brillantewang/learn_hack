@@ -29,11 +29,15 @@ When starting a new conversation:
 2. Read the current unit's lesson `.md` to see what was covered.
 3. Resume exactly where we left off. Say something like: "Welcome back. Last time we finished [X]. Ready to continue with [Y]?"
 
+## Memory persistence
+
+Claude Code's memory files live at `/root/.claude/projects/.../memory/`, which gets wiped on dev container rebuild. To fix this, `devcontainer.json` symlinks that path to `.claude/memory/` in the repo (gitignored). This means memories survive rebuilds automatically.
+
 ## Learner profile
 
 - Background: Python, TypeScript
 - Role: Infra engineer, Meta fraud & financial team
 - Start date at Meta: May 4, 2026
-- 1 hour/day budget
+- 1 hour/day budget, 4-week target (finish by ~April 14) to leave buffer for moving/other onboarding prep
 - Prefers structured learning with exercises
 - No ML background (but will work adjacent to ML engineers)

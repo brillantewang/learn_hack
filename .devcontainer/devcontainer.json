@@ -2,10 +2,17 @@
     "name": "Hack Dev",
     "image": "hhvm/hhvm:latest",
     "extensions": ["pranayagarwal.vscode-hack"],
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {} // this is so I can get the gh CLI so claude can help with github commands
+    },
 
     // Install Node.js and Claude Code (not included in the HHVM image)
-    // This is so I can usae Claude Code in the VSCode terminal.
-    "postCreateCommand": "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs && npm install -g @anthropic-ai/claude-code",
+    // This is so I can use Claude Code in the VSCode terminal.
+    // Install Node.js, Claude Code, and symlink Claude's memory to the repo.
+    // Claude Code stores memory at /root/.claude/projects/…/memory/, which gets
+    // wiped on container rebuild. Symlinking it to .claude/memory/ in the repo
+    // means memories persist across rebuilds (the folder is .gitignored).
+    "postCreateCommand": "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs && npm install -g @anthropic-ai/claude-code && mkdir -p /root/.claude/projects/-workspaces-learn_hack && ln -sf /workspaces/learn_hack/.claude/memory /root/.claude/projects/-workspaces-learn_hack/memory",
 
     // Fix Claude Code OAuth login inside dev containers.
     // Claude Code's auth server binds to localhost, but Node.js resolves that

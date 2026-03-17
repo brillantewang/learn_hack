@@ -1,7 +1,7 @@
 # Hack Language Curriculum
 
 **Learner:** Infra engineer joining Meta (fraud & financial team), background in Python & TypeScript
-**Timeline:** 4 weeks, ~1 hour/day (~20 sessions)
+**Timeline:** 4 weeks (2026-03-17 → 2026-04-14), ~1 hour/day (~20 sessions), finishing well before Meta start date (2026-05-04)
 **Goal:** Proficiency in Hack for daily backend/infra work (LLM integration, legacy migration, systems code)
 
 ---
