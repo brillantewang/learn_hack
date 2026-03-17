@@ -43,4 +43,13 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 
 ### Session 1 — 2026-03-17
 - Set up curriculum, CLAUDE.md, PROGRESS.md, .gitignore
-- Next: Create folder structure, begin Unit 01
+- Installed Claude Code in devcontainer, set up memory persistence via symlink
+
+### Session 2 — 2026-03-17
+- Switched memory persistence from symlink to bind mount (~/.claude from host)
+- Investigated ~/.claude.json — confirmed it's just client-side UI state, not needed in container
+- Confirmed OAuth tokens live in macOS Keychain, not in .claude.json
+- Fixed stop/notification hooks (afplay/osascript) failing in Linux container — wrapped with OS detection + `|| true`
+- Learned about SSH known_hosts in container context (agent-forwarded, not mounted)
+- Started Unit 01 lesson.md (not yet committed)
+- Next: Begin Unit 01 teaching
