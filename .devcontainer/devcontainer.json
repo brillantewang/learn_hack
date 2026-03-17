@@ -11,12 +11,12 @@
     // This is so I can use Claude Code in the VSCode terminal.
     "postCreateCommand": "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs && npm install -g @anthropic-ai/claude-code",
 
-    // Mount host's ~/.claude so settings and memories persist across rebuilds
+    // Mount host's ~/.claude for host settings and so memories persist across rebuilds
     "mounts": [
         "source=${localEnv:HOME}/.claude,target=/root/.claude,type=bind"
     ],
 
-    // Fix Claude Code OAuth login inside dev containers.
+    // Fix Claude Code OAuth login inside dev containers (Note: We must do this since Claude Code Creds are stored in mac keychain, so cannot be mounted)
     // Claude Code's auth server binds to localhost, but Node.js resolves that
     // to ::1 (IPv6). VS Code's port forwarder sends traffic to 127.0.0.1 (IPv4),
     // so the OAuth callback never reaches the auth server and hangs.
