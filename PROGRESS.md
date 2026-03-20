@@ -5,17 +5,17 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 
 ## Current State
 
-- **Current Unit:** 01
-- **Current Lesson Status:** not started
-- **Last Completed Unit:** none
-- **Date Last Active:** 2026-03-17
+- **Current Unit:** 02
+- **Current Lesson Status:** in progress (lesson taught, ex01 done, ex02 partially done)
+- **Last Completed Unit:** 01
+- **Date Last Active:** 2026-03-20
 
 ## Unit Completion Log
 
 | Unit | Topic | Status | Date Completed | Notes |
 |------|-------|--------|----------------|-------|
-| 01 | Hello Hack & Type System Basics | not started | | |
-| 02 | Collections | not started | | |
+| 01 | Hello Hack & Type System Basics | complete | 2026-03-19 | Strong grasp, no weak areas |
+| 02 | Collections | in progress | | ex01 done, ex02 in progress (1&2 done, #3 TODO) |
 | 03 | Control Flow & Type Refinement | not started | | |
 | 04 | Functions, Closures & Type Aliases | not started | | |
 | 05 | Week 1 Assessment | not started | | |
@@ -52,4 +52,33 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - Fixed stop/notification hooks (afplay/osascript) failing in Linux container — wrapped with OS detection + `|| true`
 - Learned about SSH known_hosts in container context (agent-forwarded, not mounted)
 - Started Unit 01 lesson.md (not yet committed)
-- Next: Begin Unit 01 teaching
+
+### Session 3 — 2026-03-18 to 2026-03-19
+- Completed Unit 01: Hello Hack & Type System Basics
+- Covered: entry points, primitive types, type annotations, tuples, string concat
+- Exercises: hello world, typed functions (fraud-themed), code reading (spot type errors)
+- Scored 5/5 on code reading exercise — solid type intuition
+- Next: Begin Unit 02 (Collections)
+
+### Session 4 — 2026-03-20
+- Explored Claude Code internals: ~/.claude.json contents, history.jsonl vs sessions/ vs projects/ structure
+- Updated CLAUDE.md and devcontainer-architecture.md with detailed persistence documentation
+- Began Unit 02 (Collections): lesson taught, check questions 4/4 correct
+- Completed ex01_basics (vec, dict, keyset, HSL functions) — good use of HSL, learned Keyset\keys() and Math\max()
+- ex02_hsl: completed #1 (high_risk_alerts) and #2 (total_wire_amount), #3 (group_by_source) still TODO
+- Noted: Str\contains vs Str\starts_with — learner used contains, works but less precise
+- Created /save-progress skill for session tracking
+- Updated CLAUDE.md exercise workflow: namespaces required, no hints in files, include expected output
+- Discussed adding HackTest for exercises — decided to try real test framework
+
+### Session 5 — 2026-03-20 (continued)
+- Set up Composer + HackTest + fbexpect + hhvm-autoload — test runner working
+- Configured hh_autoload.json (roots, devRoots, includeVendor, parse mode)
+- Resolved setup snags: allow-plugins, missing tests/ dir, vendor PHP parsing crash, shell wrapper permissions
+- Added Composer install to devcontainer.json postCreateCommand for rebuild persistence
+- Added vendor/ to .gitignore, created tests/ with ExampleTest.hack
+- Deep-dived: how autoloading works (generated map in vendor/autoload.hack), HackTest execution chain, Composer's PHP heritage
+- Discussed Meta production tooling vs our setup — language identical, tooling (Buck vs Composer) differs
+- Created docs/ folder: moved devcontainer-architecture.md, added composer-and-autoloading.md
+- About to rebuild container to verify everything persists
+- Next: Verify rebuild works, write real tests for exercises, finish ex02 #3, ex03 code reading

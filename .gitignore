@@ -3,6 +3,9 @@
 *.doc
 *.docx
 
+# Composer dependencies
+vendor/
+
 # OS files
 .DS_Store
 Thumbs.db

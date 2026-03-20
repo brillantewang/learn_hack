@@ -1,0 +1,10 @@
+{
+  "roots": [
+    "units/"
+  ],
+  "devRoots": [
+    "tests/"
+  ],
+  "includeVendor": true,
+  "autoloadFilesBehavior": "parse"
+}

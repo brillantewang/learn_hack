@@ -1,0 +1,12 @@
+{
+  "require-dev": {
+    "hhvm/hacktest": "*",
+    "facebook/fbexpect": "*",
+    "hhvm/hhvm-autoload": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "hhvm/hhvm-autoload": true
+    }
+  }
+}

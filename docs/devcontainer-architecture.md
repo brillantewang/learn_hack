@@ -65,7 +65,11 @@ When you develop Hack inside a VS Code dev container, your system is split acros
 │  │  │  - Completely separate from type checking          │  │  │
 │  │  └───────────────────────────────────────────────────┘  │  │
 │  │                                                         │  │
-│  │  /workspaces/learn_hack/ ◄── mounted from Mac ──►      │  │
+│  │  /workspaces/learn_hack/ ◄── auto-mounted by VS Code    │  │
+│  │       from Mac's ~/dev/personal/learning/learn_hack     │  │
+│  │                                                         │  │
+│  │  /root/.claude/ ◄── bind-mounted from Mac's ~/.claude   │  │
+│  │       via devcontainer.json (for Claude Code persistence)│  │
 │  └─────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -153,6 +157,35 @@ VS Code Server sends render instructions to VS Code UI
         ▼
 You see red squiggles under the errors
 ```
+
+## How Claude Code Persistence Works
+
+Claude Code stores all its data under the user's home directory in a `.claude` folder. In the container, the home directory is `/root` (since the container runs as root), so Claude Code looks for `/root/.claude`. The `devcontainer.json` bind-mounts the Mac's `~/.claude` to that path, so Claude Code in the container reads/writes directly to the Mac's filesystem.
+
+```
+Mac: ~/.claude/                      Container: /root/.claude/
+  ├── settings.json          ◄═══►     (same file, bind-mounted)
+  ├── history.jsonl           ◄═══►     (same file)
+  ├── sessions/               ◄═══►     (same dir — tiny metadata per session)
+  └── projects/               ◄═══►     (same dir)
+       ├── -Users-brillantewang-dev-personal-learning-learn-hack/
+       │     ← Sessions started from the Mac (ignored in container)
+       └── -workspaces-learn-hack/
+             ← Sessions started from the container (ignored on Mac)
+             ├── memory/                  ← Memories (shared across conversations)
+             ├── <sessionId>.jsonl        ← Full conversation history per session
+             └── <sessionId>/             ← Working data (tool results, etc.)
+```
+
+**How `/resume` works:** Claude Code reads `history.jsonl`, which has one entry per user message across all conversations. Each entry is tagged with a `sessionId` and `project` path. It appears to filter by the current project path and probably groups by session ID to show one line per conversation (likely the first message).
+
+**Project path isolation:** The project directory name is derived from the working directory (slashes become dashes). Container sessions use `/workspaces/learn_hack` → `-workspaces-learn-hack`. If you ran Claude Code on the Mac directly from the same repo, it would use the Mac path → `-Users-brillantewang-dev-personal-learning-learn-hack`. The two would not share memory or history.
+
+**What persists across rebuilds (via bind mount):**
+- Conversation history, memories, settings, hooks
+
+**What does NOT persist:**
+- OAuth login — tokens are in macOS Keychain, inaccessible from the container. Must re-auth after rebuild.
 
 ## Why You Need to Run `hh_client` Once
 

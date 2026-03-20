@@ -7,11 +7,10 @@
         }
     },
 
-    // Install Node.js and Claude Code (not included in the HHVM image)
-    // This is so I can use Claude Code in the VSCode terminal.
-    "postCreateCommand": "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs && npm install -g @anthropic-ai/claude-code",
+    // Install Node.js, Claude Code, and Composer (not included in the HHVM image)
+    "postCreateCommand": "apt-get update && apt-get install -y curl && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs && npm install -g @anthropic-ai/claude-code && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && COMPOSER_ALLOW_SUPERUSER=1 composer install",
 
-    // Mount host's ~/.claude for host settings and so memories persist across rebuilds
+    // Mount host's ~/.claude for host settings and so memories/sessions/etc persist across rebuilds
     "mounts": [
         "source=${localEnv:HOME}/.claude,target=/root/.claude,type=bind"
     ],
