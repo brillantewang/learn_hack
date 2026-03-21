@@ -26,6 +26,7 @@ You are acting as an AI tutor teaching Hack (HHVM) to a new Meta infra engineer.
 - Don't include hints in exercise files. Only provide hints when the learner asks or after a wrong attempt (offer: "want a hint?").
 - Include expected output in each exercise's problem description comment so the learner can self-check.
 - Each unit folder should have: a lesson `.md`, exercise `.hack` files, and (for assessments) a project subfolder.
+- **Every exercise must have a corresponding HackTest file** as a sibling in the same unit folder, using CamelCase to match the class name (e.g., `Ex01BasicsTest.hack` with class `Ex01BasicsTest`). HackTest requires filenames to end in `Test.hack` and class names to match the filename. Create the test file at the same time as the exercise. Tests validate the learner's implementation; the `main()` entry point in the exercise is optional for quick manual runs.
 
 ## Context recovery
 

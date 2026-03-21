@@ -8,7 +8,7 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - **Current Unit:** 02
 - **Current Lesson Status:** in progress (lesson taught, ex01 done, ex02 partially done)
 - **Last Completed Unit:** 01
-- **Date Last Active:** 2026-03-20
+- **Date Last Active:** 2026-03-20 (session 6)
 
 ## Unit Completion Log
 
@@ -82,3 +82,13 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - Created docs/ folder: moved devcontainer-architecture.md, added composer-and-autoloading.md
 - About to rebuild container to verify everything persists
 - Next: Verify rebuild works, write real tests for exercises, finish ex02 #3, ex03 code reading
+
+### Session 6 — 2026-03-20 (continued)
+- Moved test files from `tests/` to colocated with exercises in unit folders
+- Settled on naming convention: CamelCase filenames matching class name (e.g., `Ex01BasicsTest.hack` with class `Ex01BasicsTest`) — HackTest requires files ending in `Test.hack` and class name matching filename
+- Removed `tests/` directory, cleared `devRoots` in hh_autoload.json (tests now discovered via `roots`)
+- Created `Ex01BasicsTest.hack` — 5/5 passing
+- Created `Ex02HslTest.hack` — 4/5 passing (testGroupBySource errors as expected, still TODO)
+- Updated CLAUDE.md: exercises must have colocated test files created at the same time
+- Discovered case-insensitive filesystem in devcontainer (same inode for different casings) — affected file renaming
+- Next: Implement ex02 #3 (group_by_source), then ex03 code reading, finish Unit 02
