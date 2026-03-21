@@ -5,18 +5,18 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 
 ## Current State
 
-- **Current Unit:** 02
-- **Current Lesson Status:** in progress (lesson taught, ex01 done, ex02 partially done)
-- **Last Completed Unit:** 01
-- **Date Last Active:** 2026-03-20 (session 6)
+- **Current Unit:** 03
+- **Current Lesson Status:** in progress (lesson taught, comprehension check passed 4/4, ex01 created — not yet implemented)
+- **Last Completed Unit:** 02
+- **Date Last Active:** 2026-03-20 (session 7)
 
 ## Unit Completion Log
 
 | Unit | Topic | Status | Date Completed | Notes |
 |------|-------|--------|----------------|-------|
 | 01 | Hello Hack & Type System Basics | complete | 2026-03-19 | Strong grasp, no weak areas |
-| 02 | Collections | in progress | | ex01 done, ex02 in progress (1&2 done, #3 TODO) |
-| 03 | Control Flow & Type Refinement | not started | | |
+| 02 | Collections | complete | 2026-03-20 | Strong grasp. Missed div-by-zero edge case in code reading (empty collection guard). |
+| 03 | Control Flow & Type Refinement | in progress | | Lesson taught, comprehension 4/4, ex01 ready to implement |
 | 04 | Functions, Closures & Type Aliases | not started | | |
 | 05 | Week 1 Assessment | not started | | |
 | 06 | Enums, Enum Classes & Shapes | not started | | |
@@ -92,3 +92,14 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - Updated CLAUDE.md: exercises must have colocated test files created at the same time
 - Discovered case-insensitive filesystem in devcontainer (same inode for different casings) — affected file renaming
 - Next: Implement ex02 #3 (group_by_source), then ex03 code reading, finish Unit 02
+
+### Session 7 — 2026-03-20 (continued)
+- Completed Unit 02: finished ex02 #3 (group_by_source) using Dict\group_by + Dict\map, ex03 code reading scored 4.5/5 (missed div-by-zero edge case), comprehension check 2/2
+- Added idx(), C\find(), Vec\concat(), Keyset\intersect() to Unit 02 lesson
+- Updated CLAUDE.md: lesson content must be thorough, code-reading exercises don't need test files
+- Began Unit 03 (Control Flow & Type Refinement): wrote lesson covering if/else, switch, loops, is/as/?as, invariant(), refinement invalidation, ??, break/continue
+- Lesson refined through Q&A: fixed switch fallthrough info (is allowed with // FALLTHROUGH comment), clarified ?? vs idx() defaults, clarified invariant() vs as, explained erased generics terminology, explained refinement invalidation mechanics
+- Feedback: don't claim things are "common at Meta" without evidence — rephrased as core Hack features
+- Comprehension check 4/4 passed
+- Created ex01_control_flow.hack + Ex01ControlFlowTest.hack — ready to implement
+- Next: Learner implements ex01, then ex02 (refinement), ex03 (code reading), finish Unit 03

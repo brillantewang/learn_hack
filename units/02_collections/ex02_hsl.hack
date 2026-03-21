@@ -32,7 +32,8 @@ function total_wire_amount(vec<string> $transactions): float {
 //    dict['ml' => vec['101', '303'], 'rules' => vec['202']]
 //    Expected output: "ml: 101, 303" and "rules: 202, 404" (one per line)
 function group_by_source(vec<dict<string, string>> $signals): dict<string, vec<string>> {
-  // TODO
+  $groups = Dict\group_by($signals, $signal ==> $signal['source']);
+  return Dict\map($groups, $signals ==> Vec\map($signals, $signal ==> $signal['id']));
 }
 
 <<__EntryPoint>>

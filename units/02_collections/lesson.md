@@ -62,7 +62,15 @@ $has_name = C\contains_key($user, 'name');  // true
 
 **TS analogy:** Like `Record<string, string>`, but mutable and with `unset()` instead of `delete`.
 
-**Gotcha:** Accessing a missing key throws at runtime. Always check with `C\contains_key()` or use `idx()` for a default.
+**Gotcha:** Accessing a missing key throws at runtime. Always check with `C\contains_key()` or use `idx()` for a default:
+
+```hack
+// idx() — safe access with a default (like Python's dict.get())
+$role = idx($user, 'role');           // returns null if key missing
+$role = idx($user, 'role', 'unknown'); // returns 'unknown' if key missing
+```
+
+`idx()` is extremely common in production Hack code — prefer it over raw `$dict['key']` when the key might not exist.
 
 ---
 
@@ -94,10 +102,10 @@ Hack's standard library is organized into namespaces. These are your bread and b
 
 | Namespace | Purpose | Example |
 |-----------|---------|---------|
-| `C\` | **C**ounting/checking collections | `C\count()`, `C\contains()`, `C\is_empty()`, `C\first()` |
+| `C\` | **C**ounting/checking collections | `C\count()`, `C\contains()`, `C\is_empty()`, `C\first()`, `C\find()` |
 | `Vec\` | Transform → returns `vec` | `Vec\map()`, `Vec\filter()`, `Vec\sort()` |
 | `Dict\` | Transform → returns `dict` | `Dict\map()`, `Dict\filter()`, `Dict\merge()` |
-| `Keyset\` | Transform → returns `keyset` | `Keyset\filter()`, `Keyset\union()`, `Keyset\keys()` |
+| `Keyset\` | Transform → returns `keyset` | `Keyset\filter()`, `Keyset\union()`, `Keyset\intersect()`, `Keyset\keys()` |
 | `Str\` | String operations | `Str\contains()`, `Str\split()`, `Str\join()` |
 | `Math\` | Math operations | `Math\sum()`, `Math\max()`, `Math\min()` |
 
@@ -130,6 +138,17 @@ $total = C\reduce($scores, ($acc, $s) ==> $acc + $s, 0.0);
 
 // Extract keys from a dict as a keyset
 $keys = Keyset\keys($user);  // keyset['name', 'team']
+
+// Group elements by a key function → dict<Tk, vec<Tv>>
+$signals = vec['ml_101', 'rules_202', 'ml_303'];
+$grouped = Dict\group_by($signals, $s ==> Str\split($s, '_')[0]);
+// dict['ml' => vec['ml_101', 'ml_303'], 'rules' => vec['rules_202']]
+
+// Find first element matching a predicate (returns null if none)
+$first_high = C\find($scores, $s ==> $s > 0.9);
+
+// Concatenate two vecs
+$all = Vec\concat(vec[1, 2], vec[3, 4]);  // vec[1, 2, 3, 4]
 
 // Math on collections
 $max = Math\max($scores);    // returns ?float (null if empty)
