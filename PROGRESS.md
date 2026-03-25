@@ -5,10 +5,10 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 
 ## Current State
 
-- **Current Unit:** 03
-- **Current Lesson Status:** in progress (lesson taught, comprehension check passed 4/4, ex01 created — not yet implemented)
-- **Last Completed Unit:** 02
-- **Date Last Active:** 2026-03-20 (session 7)
+- **Current Unit:** 04
+- **Current Lesson Status:** in progress (lesson taught, newtype deep-dive done, comprehension check not yet done)
+- **Last Completed Unit:** 03
+- **Date Last Active:** 2026-03-25 (session 9)
 
 ## Unit Completion Log
 
@@ -16,8 +16,8 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 |------|-------|--------|----------------|-------|
 | 01 | Hello Hack & Type System Basics | complete | 2026-03-19 | Strong grasp, no weak areas |
 | 02 | Collections | complete | 2026-03-20 | Strong grasp. Missed div-by-zero edge case in code reading (empty collection guard). |
-| 03 | Control Flow & Type Refinement | in progress | | Lesson taught, comprehension 4/4, ex01 ready to implement |
-| 04 | Functions, Closures & Type Aliases | not started | | |
+| 03 | Control Flow & Type Refinement | complete | 2026-03-24 | Strong grasp. 5/5 code reading. Good use of ?as num, invariant() refinement. |
+| 04 | Functions, Closures & Type Aliases | in progress | | Lesson taught, newtype deep-dive complete, comprehension check next |
 | 05 | Week 1 Assessment | not started | | |
 | 06 | Enums, Enum Classes & Shapes | not started | | |
 | 07 | Classes & Interfaces | not started | | |
@@ -103,3 +103,23 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - Comprehension check 4/4 passed
 - Created ex01_control_flow.hack + Ex01ControlFlowTest.hack — ready to implement
 - Next: Learner implements ex01, then ex02 (refinement), ex03 (code reading), finish Unit 03
+
+### Session 8 — 2026-03-24
+- Completed Unit 03: ex01 10/10 (missed default case in switch first try), ex02 14/14 (including unhappy paths), ex03 code reading 5/5
+- Added unhappy path tests (toThrow for TypeAssertionException, HH\InvariantException)
+- Updated CLAUDE.md: unhappy path tests, run hh-autoload after creating files, cross-check lessons against docs
+- Learned: Hack's `.` operator silently converts null to empty string (not a type error)
+- Began Unit 04 (Functions, Closures & Type Aliases): lesson written covering default/variadic params, function types, function references, lambdas, capture-by-value, pipe operator, type/newtype aliases
+
+### Session 9 — 2026-03-25
+- Deep-dived into newtype: multiple rounds of Q&A to build accurate mental model
+  - newtype = compile-time access control for a type, file is the abstraction boundary
+  - Defining file sets the rules (exported functions = the API), outside files restricted to API
+  - Without constraint: full encapsulation, outside can only use exported functions
+  - With `as` constraint: outside files can also treat as the constrained type (e.g. `as arraykey` for dict keys)
+  - `===` always works on same type even without constraint
+  - Learned that local variable types can widen (adding int key to dict<UserId, string> widens to dict<arraykey, string>)
+- Created runnable newtype demo files (newtype_demo_types.hack, newtype_demo_outside.hack) showing both variants
+- Added lambda vs named function scope difference to lesson
+- Updated CLAUDE.md: cross-check lessons against official docs before presenting
+- Next: Comprehension check for Unit 04, then exercises

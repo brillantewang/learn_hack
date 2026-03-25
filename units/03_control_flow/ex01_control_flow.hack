@@ -15,7 +15,15 @@ use namespace HH\Lib\{C, Vec, Dict, Str, Math};
 //    otherwise    → "low"
 //    Expected: risk_label(0.85) => "critical", risk_label(0.3) => "medium"
 function risk_label(float $score): string {
-  // TODO
+  if ($score > 0.8) {
+    return "critical";
+  } else if ($score > 0.5) {
+    return "high";
+  } else if ($score > 0.2) {
+    return "medium";
+  }
+
+  return "low";
 }
 
 // 2. Takes a signal type string and returns a priority int using a switch:
@@ -25,7 +33,16 @@ function risk_label(float $score): string {
 //    anything else → 99
 //    Expected: signal_priority("fraud") => 1, signal_priority("other") => 99
 function signal_priority(string $type): int {
-  // TODO
+  switch ($type) {
+    case "fraud":
+      return 1;
+    case "abuse":
+      return 2;
+    case "spam":
+      return 3;
+    default:
+      return 99;
+  }
 }
 
 // 3. Takes a vec of transaction amounts and returns a dict with:
@@ -35,7 +52,14 @@ function signal_priority(string $type): int {
 //    Expected: summarize_positive(vec[100.0, -50.0, 200.0, -10.0]) =>
 //              dict['count' => 2.0, 'total' => 300.0]
 function summarize_positive(vec<float> $amounts): dict<string, float> {
-  // TODO
+  $res = dict['count' => 0.0, 'total' => 0.0];
+  foreach ($amounts as $amount) {
+    if ($amount > 0) {
+      $res['count'] = $res['count'] + 1;
+      $res['total'] = $res['total'] + $amount;
+    }
+  }
+  return $res;
 }
 
 // 4. Takes a vec of nullable strings (?string) representing user IDs.
@@ -44,7 +68,13 @@ function summarize_positive(vec<float> $amounts): dict<string, float> {
 //    Expected: clean_ids(vec["abc", null, "def", null, "ghi"]) =>
 //              vec["ABC", "DEF", "GHI"]
 function clean_ids(vec<?string> $ids): vec<string> {
-  // TODO
+  $res = vec[];
+  foreach ($ids as $id) {
+    if ($id !== null) {
+      $res[] = Str\uppercase($id);
+    }
+  }
+  return $res;
 }
 
 <<__EntryPoint>>

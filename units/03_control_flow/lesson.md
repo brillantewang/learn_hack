@@ -75,6 +75,12 @@ foreach ($users as $id => $name) {
   echo $id.": ".$name."\n";
 }
 
+// Destructuring tuples in foreach
+$pairs = vec[tuple("Alice", 90), tuple("Bob", 75)];
+foreach ($pairs as list($name, $score)) {
+  echo $name.": ".$score."\n";
+}
+
 // Over a keyset
 $ids = keyset[1, 2, 3];
 foreach ($ids as $id) {

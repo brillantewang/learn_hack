@@ -19,7 +19,7 @@ You are acting as an AI tutor teaching Hack (HHVM) to a new Meta infra engineer.
 ## Exercise workflow
 
 - Exercises go in the unit folder (e.g., `units/01_hello_hack_types/`).
-- Create a lesson markdown in the unit folder with instructions. Be sure that you've included all important concepts for the learner.
+- Create a lesson markdown in the unit folder with instructions. Be sure that you've included all important concepts for the learner. After writing the lesson, cross-check against the official Hack docs to verify nothing important was missed before presenting it.
 - The learner writes `.hack` files for exercises; review their code and give feedback.
 - Each exercise file must have its own `namespace` (e.g., `Unit1Ex2`) to avoid `main` collisions when multiple files are in scope.
 - Exercises must be solvable cleanly using only content covered in the lesson. If an exercise intentionally requires exploration, label it as a stretch goal.
@@ -27,6 +27,8 @@ You are acting as an AI tutor teaching Hack (HHVM) to a new Meta infra engineer.
 - Include expected output in each exercise's problem description comment so the learner can self-check.
 - Each unit folder should have: a lesson `.md`, exercise `.hack` files, and (for assessments) a project subfolder.
 - **Every exercise must have a corresponding HackTest file** as a sibling in the same unit folder, using CamelCase to match the class name (e.g., `Ex01BasicsTest.hack` with class `Ex01BasicsTest`). HackTest requires filenames to end in `Test.hack` and class names to match the filename. Create the test file at the same time as the exercise. Tests validate the learner's implementation; the `main()` entry point in the exercise is optional for quick manual runs. **Exception:** code-reading/predict-output exercises don't need test files — validation happens via discussion with the tutor.
+- **Run `vendor/bin/hh-autoload`** after creating new `.hack` files so the autoload map picks them up, e.g. before running tests.
+- **Tests should include unhappy paths** where appropriate — e.g., testing that `as` throws `\TypeAssertionException` or `invariant()` throws `\HH\InvariantException` on bad input. Use `expect(() ==> ...)->toThrow(ClassName::class)` for these.
 
 ## Context recovery
 
