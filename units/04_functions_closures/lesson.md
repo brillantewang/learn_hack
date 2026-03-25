@@ -279,6 +279,7 @@ See `newtype_demo_types.hack` and `newtype_demo_outside.hack` in this folder for
 ## Exercises
 
 See the exercise files in this folder:
-1. `ex01_functions.hack` — Default params, variadic params, function types
+1. `ex01_functions.hack` — Default params, variadic params, spread operator, function types, returning lambdas
 2. `ex02_pipes.hack` — Data pipelines with the pipe operator
-3. `ex03_predict.hack` — Code reading: predict outputs, spot capture-by-value bugs
+3. `ex03_predict.hack` — Code reading: predict outputs (capture-by-value, pipes, function refs, type aliases)
+4. `ex04_newtype_types.hack` + `ex04_newtype_usage.hack` — Newtype: defining opaque types and using them from outside

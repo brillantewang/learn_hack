@@ -6,9 +6,9 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 ## Current State
 
 - **Current Unit:** 04
-- **Current Lesson Status:** in progress (lesson taught, newtype deep-dive done, comprehension check not yet done)
+- **Current Lesson Status:** in progress (comprehension check done, ex01 complete, ex02-ex04 next)
 - **Last Completed Unit:** 03
-- **Date Last Active:** 2026-03-25 (session 9)
+- **Date Last Active:** 2026-03-25 (session 10)
 
 ## Unit Completion Log
 
@@ -17,7 +17,7 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 | 01 | Hello Hack & Type System Basics | complete | 2026-03-19 | Strong grasp, no weak areas |
 | 02 | Collections | complete | 2026-03-20 | Strong grasp. Missed div-by-zero edge case in code reading (empty collection guard). |
 | 03 | Control Flow & Type Refinement | complete | 2026-03-24 | Strong grasp. 5/5 code reading. Good use of ?as num, invariant() refinement. |
-| 04 | Functions, Closures & Type Aliases | in progress | | Lesson taught, newtype deep-dive complete, comprehension check next |
+| 04 | Functions, Closures & Type Aliases | in progress | | Comprehension check 5/5, ex01 20/20, ex02-ex04 next |
 | 05 | Week 1 Assessment | not started | | |
 | 06 | Enums, Enum Classes & Shapes | not started | | |
 | 07 | Classes & Interfaces | not started | | |
@@ -123,3 +123,12 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - Added lambda vs named function scope difference to lesson
 - Updated CLAUDE.md: cross-check lessons against official docs before presenting
 - Next: Comprehension check for Unit 04, then exercises
+
+### Session 10 — 2026-03-25 (continued)
+- Comprehension check 5/5: capture-by-value, double<> vs double(), newtype outside-file restrictions, pipe rewrite, closure-in-a-loop (Hack vs Python vs TS with let/var)
+- Learner correctly pushed back on TS closure-in-a-loop claim — `let` creates per-iteration binding, so TS with `let` matches Hack behavior
+- Created exercises: ex01 (functions), ex02 (pipes), ex03 (predict/code-reading), ex04 (newtype with defining + outside files)
+- Added spread operator exercise (#3 combine_risk_scores) and newtype exercise (ex04) after cross-checking lesson coverage
+- Updated CLAUDE.md: cross-check exercises against lesson.md for coverage gaps
+- Ex01 completed 20/20 — used pipe operator in #1 (valid but wasn't the point), used Math\sum_float for variadics, learned Math\maxva = "variadic arguments" version of Math\max
+- Next: ex02 (pipes), ex03 (predict), ex04 (newtype)

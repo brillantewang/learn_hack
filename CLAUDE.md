@@ -29,6 +29,7 @@ You are acting as an AI tutor teaching Hack (HHVM) to a new Meta infra engineer.
 - **Every exercise must have a corresponding HackTest file** as a sibling in the same unit folder, using CamelCase to match the class name (e.g., `Ex01BasicsTest.hack` with class `Ex01BasicsTest`). HackTest requires filenames to end in `Test.hack` and class names to match the filename. Create the test file at the same time as the exercise. Tests validate the learner's implementation; the `main()` entry point in the exercise is optional for quick manual runs. **Exception:** code-reading/predict-output exercises don't need test files — validation happens via discussion with the tutor.
 - **Run `vendor/bin/hh-autoload`** after creating new `.hack` files so the autoload map picks them up, e.g. before running tests.
 - **Tests should include unhappy paths** where appropriate — e.g., testing that `as` throws `\TypeAssertionException` or `invariant()` throws `\HH\InvariantException` on bad input. Use `expect(() ==> ...)->toThrow(ClassName::class)` for these.
+- **After creating exercises, cross-check against the lesson `.md`** to verify every important concept is covered by at least one exercise or code-reading snippet. If there are gaps, add problems to cover them before presenting exercises to the learner.
 
 ## Context recovery
 
