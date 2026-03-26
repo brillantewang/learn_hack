@@ -27,8 +27,13 @@ use namespace HH\Lib\{Vec, Str, Math, C};
 //      process_transaction_amounts(vec[10.0, 20.0])
 //        => ""
 function process_transaction_amounts(vec<float> $amounts): string {
-  // TODO: implement using pipe operator (|>)
-  return '';
+  $res = $amounts
+    |> Vec\filter($$, $amount ==> $amount > 100.0)
+    |> Vec\map($$, $amount ==> $amount * 1.1)
+    |> Vec\map($$, $amount ==> Math\round($amount, 2))
+    |> Vec\map($$, $amount ==> "$".($amount))
+    |> Str\join($$, ", ");
+  return $res;
 }
 
 // 2. build_alert_summary(vec<(string, float)> $alerts): string
@@ -50,8 +55,13 @@ function process_transaction_amounts(vec<float> $amounts): string {
 //      ])
 //        => "velocity_spike: 0.9 | geo_anomaly: 0.7 | device_mismatch: 0.6"
 function build_alert_summary(vec<(string, float)> $alerts): string {
-  // TODO: implement using pipe operator (|>)
-  return '';
+  $res = $alerts
+    |> Vec\filter($$, $pair ==> $pair[1] > 0.5)
+    |> Vec\sort_by($$, $pair ==> -$pair[1])
+    |> Vec\take($$, 3)
+    |> Vec\map($$, $pair ==> ($pair[0]).": ".($pair[1]))
+    |> Str\join($$, " | ");
+  return $res;
 }
 
 <<__EntryPoint>>

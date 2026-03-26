@@ -5,10 +5,10 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 
 ## Current State
 
-- **Current Unit:** 04
-- **Current Lesson Status:** in progress (comprehension check done, ex01 complete, ex02-ex04 next)
-- **Last Completed Unit:** 03
-- **Date Last Active:** 2026-03-25 (session 10)
+- **Current Unit:** 05
+- **Current Lesson Status:** not started
+- **Last Completed Unit:** 04
+- **Date Last Active:** 2026-03-26 (session 11)
 
 ## Unit Completion Log
 
@@ -17,7 +17,7 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 | 01 | Hello Hack & Type System Basics | complete | 2026-03-19 | Strong grasp, no weak areas |
 | 02 | Collections | complete | 2026-03-20 | Strong grasp. Missed div-by-zero edge case in code reading (empty collection guard). |
 | 03 | Control Flow & Type Refinement | complete | 2026-03-24 | Strong grasp. 5/5 code reading. Good use of ?as num, invariant() refinement. |
-| 04 | Functions, Closures & Type Aliases | in progress | | Comprehension check 5/5, ex01 20/20, ex02-ex04 next |
+| 04 | Functions, Closures & Type Aliases | complete | 2026-03-26 | Comprehension 5/5, ex01 20/20, ex02 10/10, ex03 4/4, ex04 14/14 |
 | 05 | Week 1 Assessment | not started | | |
 | 06 | Enums, Enum Classes & Shapes | not started | | |
 | 07 | Classes & Interfaces | not started | | |
@@ -132,3 +132,11 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - Updated CLAUDE.md: cross-check exercises against lesson.md for coverage gaps
 - Ex01 completed 20/20 — used pipe operator in #1 (valid but wasn't the point), used Math\sum_float for variadics, learned Math\maxva = "variadic arguments" version of Math\max
 - Next: ex02 (pipes), ex03 (predict), ex04 (newtype)
+
+### Session 11 — 2026-03-26
+- Completed Unit 04: ex02 10/10 (pipes), ex03 4/4 (predict), ex04 14/14 (newtype)
+- Ex02: noted style feedback — keep entire pipeline in one pipe expression rather than breaking into intermediate variable + Str\join
+- Ex03: learned that (string) cast on whole-number floats (e.g. 220.0) drops the ".0" in Hack
+- Ex04: clean newtype usage — correctly used API for opaque TransactionId, direct comparison for RiskLevel (as num), Math\max for comparable types
+- Updated CLAUDE.md: predict-output exercises now split into two files — bare exercise file (snake_case) with blank YOUR ANSWER blocks, and a CamelCase answers file (e.g. Ex03PredictAnswers.hack) with concept categories, explanations, and correct answers. Grading appended to exercise file after review.
+- Next: Unit 05 (Week 1 Assessment)

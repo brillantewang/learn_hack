@@ -16,23 +16,21 @@
 namespace Unit4Ex4Usage;
 
 use namespace Unit4Ex4;
-use namespace HH\Lib\{C};
+use namespace HH\Lib\{C, Math};
 
 // 5. format_transaction(Unit4Ex4\TransactionId $id): string
 //    Returns "Transaction: " followed by the string representation of the ID.
 //    Remember: TransactionId is fully opaque — you can't treat it as a string
 //    directly. Use the API from the defining file.
 function format_transaction(Unit4Ex4\TransactionId $id): string {
-  // TODO: implement
-  return '';
+  return "Transaction: ".(Unit4Ex4\transaction_id_to_string($id));
 }
 
 // 6. is_high_risk(Unit4Ex4\RiskLevel $level): bool
 //    Returns true if the risk level is greater than 70.
 //    RiskLevel has `as num`, so you CAN compare it directly — no API call needed.
 function is_high_risk(Unit4Ex4\RiskLevel $level): bool {
-  // TODO: implement
-  return false;
+  return $level > 70;
 }
 
 // 7. highest_risk(vec<Unit4Ex4\RiskLevel> $levels): ?Unit4Ex4\RiskLevel
@@ -42,8 +40,7 @@ function is_high_risk(Unit4Ex4\RiskLevel $level): bool {
 function highest_risk(
   vec<Unit4Ex4\RiskLevel> $levels,
 ): ?Unit4Ex4\RiskLevel {
-  // TODO: implement
-  return null;
+  return Math\max($levels);
 }
 
 <<__EntryPoint>>
