@@ -6,9 +6,9 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 ## Current State
 
 - **Current Unit:** 05
-- **Current Lesson Status:** not started
+- **Current Lesson Status:** in progress — ex01 predict done (5/5), ex02 mini-project created, ready to implement
 - **Last Completed Unit:** 04
-- **Date Last Active:** 2026-03-26 (session 11)
+- **Date Last Active:** 2026-03-27 (session 12)
 
 ## Unit Completion Log
 
@@ -18,7 +18,7 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 | 02 | Collections | complete | 2026-03-20 | Strong grasp. Missed div-by-zero edge case in code reading (empty collection guard). |
 | 03 | Control Flow & Type Refinement | complete | 2026-03-24 | Strong grasp. 5/5 code reading. Good use of ?as num, invariant() refinement. |
 | 04 | Functions, Closures & Type Aliases | complete | 2026-03-26 | Comprehension 5/5, ex01 20/20, ex02 10/10, ex03 4/4, ex04 14/14 |
-| 05 | Week 1 Assessment | not started | | |
+| 05 | Week 1 Assessment | in progress | | ex01 predict 5/5, ex02 mini-project ready to implement |
 | 06 | Enums, Enum Classes & Shapes | not started | | |
 | 07 | Classes & Interfaces | not started | | |
 | 08 | Traits & Generics | not started | | |
@@ -140,3 +140,14 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 - Ex04: clean newtype usage — correctly used API for opaque TransactionId, direct comparison for RiskLevel (as num), Math\max for comparable types
 - Updated CLAUDE.md: predict-output exercises now split into two files — bare exercise file (snake_case) with blank YOUR ANSWER blocks, and a CamelCase answers file (e.g. Ex03PredictAnswers.hack) with concept categories, explanations, and correct answers. Grading appended to exercise file after review.
 - Next: Unit 05 (Week 1 Assessment)
+
+### Session 12 — 2026-03-27
+- Began Unit 05 (Week 1 Assessment)
+- ex01 predict (code reading quiz): 5/5 — covered pipes, closures, capture-by-value, type refinement, collections
+- Created ex02 mini-project: Transaction Alert Pipeline (CLI data processor)
+  - 5 functions: parse_transactions, score_transaction, score_all, filter_high_risk, build_report
+  - Includes <<__EntryPoint>> main for CLI output (hardcoded sample data — no file I/O yet)
+  - Introduces shapes (preview of Unit 06) as a natural fit for structured transaction data
+  - Uses newtype (RiskScore), type aliases, pipes, function references, HSL functions
+  - Tests in Ex02MiniProjectTest.hack (13 tests including end-to-end pipeline)
+- Next: Learner implements ex02 mini-project, then Unit 05 complete
