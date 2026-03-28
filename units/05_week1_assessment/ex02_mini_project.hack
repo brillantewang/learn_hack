@@ -34,10 +34,8 @@ namespace Unit5Ex2;
 use namespace HH\Lib\{Vec, Dict, Str, Math, C};
 
 // ── Type Aliases ──
-
-// A RiskScore is an int, but should be opaque outside this file.
-// Outside code can compare scores (treat as num).
-newtype RiskScore as num = int;
+// RiskScore is defined in risk_score.hack (newtype, opaque outside that file).
+// Use make_risk_score() to construct, and treat as num for comparisons.
 
 // A channel a transaction can come through.
 type Channel = string; // "wire", "card", "crypto", "ach"
@@ -53,17 +51,17 @@ type Transaction = shape(
   'country' => string,
 );
 
-// ── Helper: RiskScore constructor ──
-function make_risk_score(int $score): RiskScore {
-  return $score;
-}
-
 // ── 1. parse_transactions ──
 // Convert a vec of RawTransaction tuples into a vec of Transaction shapes.
 function parse_transactions(
   vec<RawTransaction> $raw,
 ): vec<Transaction> {
-  // TODO
+  return Vec\map($raw, $tx ==> shape(
+    'id' => $tx[0],
+    'amount' => $tx[1],
+    'channel' => $tx[2],
+    'country' => $tx[3],
+  ));
 }
 
 // ── 2. score_transaction ──
@@ -76,7 +74,21 @@ function parse_transactions(
 //   - country is NOT "US" → +20
 // Return the total RiskScore.
 function score_transaction(Transaction $txn): RiskScore {
-  // TODO
+  $res = 10;
+  if ($txn['amount'] >= 1000) $res += 30;
+  if ($txn['amount'] >= 5000) $res += 50;
+  switch ($txn['channel']) {
+    case 'wire':
+      $res += 25;
+      break;
+    case 'crypto':
+      $res += 30;
+      break;
+    default:
+      break;
+  }
+  if ($txn['country'] !== 'US') $res += 20;
+  return make_risk_score($res);
 }
 
 // ── 3. score_all ──
@@ -87,7 +99,14 @@ function score_all(
   vec<Transaction> $txns,
   (function(Transaction): RiskScore) $scorer,
 ): dict<string, RiskScore> {
-  // TODO
+  // first pass
+  // $transformed = $txns 
+  //   |> Vec\map($$, $txn ==> tuple($txn['id'], $scorer($txn)))
+  //   |> Dict\from_entries($$);
+  // return $transformed;
+
+  // second pass, learned about \pull
+  return Dict\pull($txns, $txn ==> $scorer($txn), $txn ==> $txn['id']);
 }
 
 // ── 4. filter_high_risk ──
@@ -95,10 +114,11 @@ function score_all(
 // transactions whose score >= threshold.
 // Return dict<string, RiskScore> with only the high-risk entries.
 function filter_high_risk(
-  dict<string, RiskScore> $scores,
+  dict<string, RiskScore> $scores, // assumed id: RiskScore
   int $threshold,
 ): dict<string, RiskScore> {
-  // TODO
+  return $scores
+    |> Dict\filter($$, $score ==> $score >= $threshold);
 }
 
 // ── 5. build_report ──
@@ -123,13 +143,53 @@ function build_report(
   vec<Transaction> $txns,
   dict<string, RiskScore> $high_risk_scores,
 ): string {
-  // TODO
+  // Get vars
+  $txns_with_score = $txns
+    |> Vec\filter($$, $txn ==> C\contains_key($high_risk_scores, $txn['id']))
+    |> Vec\map($$, $txn ==> tuple($txn, $high_risk_scores[$txn['id']]))
+    |> Vec\sort_by($$, $txn_with_score ==> -$txn_with_score[1]);
+
+  $format_row = (Transaction $txn, RiskScore $score): string ==> {
+    $channel = Str\uppercase($txn['channel']);
+    $id = $txn['id'];
+    $amount = Str\format("%.2f", $txn['amount']);
+    return "  [".$channel."] ".$id.": $".$amount." (score: ".$score.")";
+  };
+
+  $total_amount = $txns_with_score
+    |> Vec\map($$, $txn_with_score ==> $txn_with_score[0]['amount'])
+    |> Math\sum_float($$)
+    |> Str\format("%.2f", $$);
+
+  $avg_score = vec($high_risk_scores)
+    |> Math\sum_float($$) // can take in a num type
+    |> Math\int_div((int)$$, C\count($high_risk_scores));
+
+  // Create result
+  $lines = vec[
+    "FRAUD ALERT REPORT",
+    "---",
+    "High risk (".C\count($high_risk_scores)."):"
+  ];
+
+  foreach ($txns_with_score as list($txn, $score)) {
+    $lines[] = $format_row($txn, $score);
+  }
+
+  $lines[] = "---";
+  $lines[] = "Total flagged amount: $".$total_amount."";
+  $lines[] = "Avg risk score: ".$avg_score;
+
+  return Str\join($lines, "\n")."\n";
 }
 
 // ── CLI Entry Point ──
 // Runs the full pipeline on sample data and prints the report.
 <<__EntryPoint>>
 async function main(): Awaitable<void> {
+  require_once(__DIR__.'/../../vendor/autoload.hack');
+  \Facebook\AutoloadMap\initialize();
+
   $raw = vec[
     tuple("TXN-001", 5000.0, "wire", "US"),
     tuple("TXN-002", 200.0, "card", "US"),

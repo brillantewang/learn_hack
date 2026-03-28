@@ -6,9 +6,9 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 ## Current State
 
 - **Current Unit:** 05
-- **Current Lesson Status:** in progress — ex01 predict done (5/5), ex02 mini-project created, ready to implement
-- **Last Completed Unit:** 04
-- **Date Last Active:** 2026-03-27 (session 12)
+- **Current Lesson Status:** complete
+- **Last Completed Unit:** 05
+- **Date Last Active:** 2026-03-28 (session 13)
 
 ## Unit Completion Log
 
@@ -18,7 +18,7 @@ Claude reads this at the start of every new conversation to resume seamlessly.
 | 02 | Collections | complete | 2026-03-20 | Strong grasp. Missed div-by-zero edge case in code reading (empty collection guard). |
 | 03 | Control Flow & Type Refinement | complete | 2026-03-24 | Strong grasp. 5/5 code reading. Good use of ?as num, invariant() refinement. |
 | 04 | Functions, Closures & Type Aliases | complete | 2026-03-26 | Comprehension 5/5, ex01 20/20, ex02 10/10, ex03 4/4, ex04 14/14 |
-| 05 | Week 1 Assessment | in progress | | ex01 predict 5/5, ex02 mini-project ready to implement |
+| 05 | Week 1 Assessment | complete | 2026-03-28 | ex01 predict 5/5, ex02 mini-project 14/14 |
 | 06 | Enums, Enum Classes & Shapes | not started | | |
 | 07 | Classes & Interfaces | not started | | |
 | 08 | Traits & Generics | not started | | |
@@ -151,3 +151,15 @@ Claude reads this at the start of every new conversation to resume seamlessly.
   - Uses newtype (RiskScore), type aliases, pipes, function references, HSL functions
   - Tests in Ex02MiniProjectTest.hack (13 tests including end-to-end pipeline)
 - Next: Learner implements ex02 mini-project, then Unit 05 complete
+
+### Session 13 — 2026-03-28
+- Completed Unit 05 (Week 1 Assessment)
+- ex02 mini-project (Transaction Alert Pipeline): 14/14 tests, CLI output matches expected
+  - Moved newtype RiskScore to separate file (Ex02RiskScore.hack) for realistic opaque type usage
+  - Learned: hhvm CLI needs `require_once` + `\Facebook\AutoloadMap\initialize()` to load other files (unlike hacktest which bootstraps autoloader itself)
+  - Learned: `Dict\pull` — idiomatic HSL way to build dict from vec with custom keys/values in one pass
+  - Learned: float-to-string via concat drops trailing zeros; use `Str\format("%.2f", $amt)` for precision
+  - Refactored: removed unnecessary parens in concat, used `vec` of lines + `Str\join` instead of mutation
+- Fixed SSH agent forwarding: container rebuild re-establishes VS Code's SSH socket connection to Mac agent
+- Updated CLAUDE.md: code reviews should include Hack-idiomatic tips (HSL functions, less-mutation patterns, unnecessary casts, etc.)
+- Next: Unit 06 (Enums, Enum Classes & Shapes)
